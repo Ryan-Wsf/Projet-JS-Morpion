@@ -1,0 +1,81 @@
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+#art{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+    /* margin-top: 50px; */
+    font-size: 30px;
+}
+#art p{
+    color: green;
+    font-weight: 700;
+}
+
+#art1{
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 40px;
+}
+#art1 div{
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+#art1 div p{
+    color: rgb(148, 4, 4);
+    font-weight: 900;
+}
+#art2{
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+    margin-bottom: 20px;
+}
+.game-container {
+    width: 600px;
+    margin: 0px auto 40px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 100px;
+}
+
+.grid {
+    /* display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px; */
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cell {
+    width: 200px;
+    height: 200px;
+    font-size: 48px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.cell i{
+font-size: 100px;
+}
+.cell:hover {
+    background-color: #ddd;
+}
