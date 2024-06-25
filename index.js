@@ -47,7 +47,8 @@ function addListenerToCells(){
             }
 
             grid[index] = currentPlayer;
-            cell.innerHTML = currentPlayer === 1 ? player1 : player2;
+            displayPlayerSymbol(index)
+            
 
             // On cherche si quelqu'un à gagné
             checkIfSomeoneWon()
@@ -56,28 +57,35 @@ function addListenerToCells(){
     });
 }
 
+// Fonction qui permet d'afficher le symbole du joueur sur le DOM
+function displayPlayerSymbol(index){
+    document.querySelectorAll(".cell")[index].innerHTML = currentPlayer === 1 ? player1 : player2;
+}
+
 // On doit vérifier s'il y a un vainqueur
 function checkIfSomeoneWon(){
-    // On vérifie les lignes
-    if( (grid[0] === grid[1] && grid[1] == grid[2] && grid[2] == currentPlayer) ||
-        (grid[3] === grid[4] && grid[4] == grid[5] && grid[5] == currentPlayer) ||
-        (grid[6] === grid[7] && grid[7] == grid[8] && grid[8] == currentPlayer) ||
 
-        (grid[0] === grid[3] && grid[3] == grid[6] && grid[6] == currentPlayer) ||
-        (grid[1] === grid[4] && grid[4] == grid[7] && grid[7] == currentPlayer) ||
-        (grid[2] === grid[5] && grid[5] == grid[8] && grid[8] == currentPlayer) ||
+    // Définir les combinaisons gagnantes
+    const winningCombinations = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8], // Lignes
+        [0, 3, 6], [1, 4, 7], [2, 5, 8], // Colonnes
+        [0, 4, 8], [2, 4, 6] // Diagonales
+    ]
 
-        (grid[0] === grid[4] && grid[4] == grid[8] && grid[8] == currentPlayer) ||
-        (grid[2] === grid[4] && grid[4] == grid[6] && grid[6] == currentPlayer)
-    ){
-        isGameWon = true;
+    // Fonction qui vérifie si une combinaison données est gagnante
+    const isWinningCombination = (combination) => 
+        combination.every(index => grid[index] === currentPlayer)
+
+    // On vérifie si une combinaison gagnante est présente
+    isGameWon = winningCombinations.some(isWinningCombination);
+    if(isGameWon) {
         if(currentPlayer === 1){
             score.player1++
         } else  {
             score.player2++
         }
     }
-
+   
     // On vérifie si la partie est finie
     isGameFinished = grid.every(cell => cell !== 0);
 
@@ -98,6 +106,47 @@ function checkIfSomeoneWon(){
 // Fonction qui pemet de changer le tour du joueur
 function changePlayer(){
     currentPlayer = currentPlayer === 1 ? 2 : 1;
+
+    // Si le joueur est le joueur 2, on doit lui permettre de jouer avec l'IA Debilla
+    if(currentPlayer === 2){
+        playWithDebilla()
+    }
+}
+
+// Fonction qui permet de jouer avec l'IA Debilla
+function playWithDebilla(){
+    // Faire le code pour que Debilla puisse jouer
+
+    /*
+        Pour que Debilla puisse jouer, elle doit pouvoir connaitre les cases vides
+        et choisir une case vide aléatoirement
+
+        Première version simple :
+        - Débilla choisit un chiffre entre 0 et 8 aléatoirement
+        - Si la case est vide, elle joue
+        - Sinon, elle recommence a choisir un chiffre aléatoirement
+
+        Une fois que l'ia à joué, on doit vérifier si elle a gagné
+        On doit relancer la fonction changePlayer pour que le joueur 1 puisse jouer  
+    */
+
+    // On choisi un nombre alétatoire entre 0 et 8
+    let randomIndex = Math.floor(Math.random() * 9);
+    console.log('randomIndex ', randomIndex)
+
+    // On vérifie si la case est vide
+    if(grid[randomIndex] === 0){
+        // La case est vide, on peut jouer
+        grid[randomIndex] = currentPlayer;
+
+        // On affiche le symbole du joueur sur le DOM
+        displayPlayerSymbol(randomIndex)
+        // On test pour savoir si quelqu'un a gagné
+        checkIfSomeoneWon()
+    } else {
+        // La case n'est pas vide, on recommence
+        playWithDebilla()
+    }
 }
 
 // Fonction qui permet de recommencer une partie
