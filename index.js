@@ -180,16 +180,16 @@ function startGame(){
 
     
 
-    // // Si personne n'a gagné, on relance le jeu
-    // if(!isGameWon && !isGameFinished){
-    //     // On relance le jeu après un délai de 500ms à 1s
-    //     setTimeout(startGame, delay) 
-    // }
+    // Si personne n'a gagné, on relance le jeu
+    if(!isGameWon && !isGameFinished){
+        // On relance le jeu après un délai de 500ms à 1s
+        setTimeout(startGame, delay) 
+    }
 
-    // // Si le jeu est terminé, on relance une nouvelle partie
-    // if(isGameWon || isGameFinished){
-    //     newGame()
-    //     startGame()
-    // }
+    // Si le jeu est terminé, on relance une nouvelle partie
+    if(isGameWon || isGameFinished){
+        newGame()
+        startGame()
+    }
 
 }
